@@ -1,3 +1,8 @@
 .PHONY setup:
 setup:
-	./infra/setup.sh
+	./infra/scripts/setup.sh && \
+	./infra/scripts/generate-bazelrc.sh
+
+.PHONY project:
+project: setup
+	bazelisk run //src:Example_Project && open src/Example_Project.xcodeproj

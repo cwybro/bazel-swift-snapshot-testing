@@ -1,0 +1,4 @@
+build --apple_platform_type=ios
+test --spawn_strategy=standalone
+
+try-import %workspace%/generated/generated.bazelrc

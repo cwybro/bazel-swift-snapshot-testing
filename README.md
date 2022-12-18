@@ -1,46 +1,21 @@
-# bazel-swift-starter
+# bazel-swift-snapshot-testing
 
-This repository template is for new Swift projects that want to use [Bazel](https://bazel.build) from the start. It provides the following conveniences to help bootstrap projects:
-- [Mockolo](external/mockolo/BUILD) external dependency, built from source
-- [`swift_module` macro](infra/macros/swift_module.bzl) for creating `swift_library` targets, along with associated mockgen and test targets
-
-## Usage
-
-1. Select the `Use this template` option and create your new repository based on this template.
-2. Update [`WORKSPACE`](WORKSPACE) for your needs
-3. [Optional] Update [`.bazelversion`](.bazelversion) with the version of Bazel you wish to use (if you're using [bazelisk](https://github.com/bazelbuild/bazelisk))
-4. [Optional] Update [`swift_module`](infra/macros/swift_module.bzl) definition for your needs
+This repository contains an exploration of snapshot testing strategies for Swift + Bazel projects, using the [pointfreeco/swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing) library.
 
 ## Setup
-
-As a convenience, a [`Makefile`](Makefile) has been provided. It contains a single command that can be invoked to install [bazelisk](https://github.com/bazelbuild/bazelisk) if needed:
+> ⚠️ This is invoked automatically during `make project`
 ```bash
 make setup
 ```
 
-## Getting Started
-
-### New Targets
-To create new `swift_module` targets, add a `BUILD` file similar to the following (substituting your own values):
-```starlark
-load("//infra/macros:swift_module.bzl", "swift_module")
-
-swift_module(
-    name = "ExampleLibrary",
-    srcs = glob([
-        "source/**/*.swift",
-    ], allow_empty = False),
-    test_srcs = glob([
-        "test/**/*.swift",
-    ], allow_empty = False),
-    visibility = ["//visibility:public"],
-)
-```
-
 ### Open Xcode Project
-`xcodeproj` targets are created for all `swift_module` by default. These projects can be generated via:
 ```bash
-bazelisk run //:ExampleLibrary_Project
+make project
 ```
 
-**Note:** Automatic project creation can be disabled by adding `project_enabled = False` to the `swift_module` definition.
+## Caveats
+Listed below are a number of caveats required for the current setup:
+- `WORKSPACE_PATH` [is injected](infra/scripts/generate-bazelrc.sh) into the Bazel test environment via a generated file
+    - This variable is used to provide a path to the local git repository to store newly-generated snapshot artifacts
+- `--spawn_strategy=standalone` is provided in the [.bazelrc](.bazelrc) for `test` invocations
+    - This flag is used to ensure that snapshot artifacts produced by [AssertSnapshot.swift](infra/TestKit/Source/AssertSnapshot.swift) are not generated in a sandbox, so they can be written to the local git repository
