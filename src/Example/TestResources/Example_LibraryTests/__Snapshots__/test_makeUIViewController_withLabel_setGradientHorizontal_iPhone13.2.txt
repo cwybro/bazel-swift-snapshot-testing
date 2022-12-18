@@ -1,0 +1,3 @@
+<UIView; frame = (0 0; 0 0); autoresize = W+H; layer = <CALayer>>
+   | <CAGradientLayer> (layer)
+   | <UILabel; frame = (0 0; 100 100); text = 'Example text'; userInteractionEnabled = NO; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <_UILabelLayer>>
