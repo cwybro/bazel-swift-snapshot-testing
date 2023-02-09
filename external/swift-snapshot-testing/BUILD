@@ -5,6 +5,7 @@ load(
 
 swift_library(
     name = "SnapshotTesting",
+    testonly = True,
     srcs = glob(
         [
             "Sources/**/*.swift",
