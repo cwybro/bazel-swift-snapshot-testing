@@ -79,6 +79,10 @@ ios_unit_test(
     data = glob([
         "TestResources/Example_AppTests/**/*",
     ]),
+    env = {
+        "TARGET_NAME": "Example_AppTests",
+        "WORKSPACE_PATH": "/Users/connorwybranowski/Documents/GitHub/bazel-swift-snapshot-testing",
+    },
     minimum_os_version = "16.0",
     runner = ":ios_x86_64_sim_runner",
     test_host = "//infra/HostApp:Host_App",
@@ -92,6 +96,10 @@ ios_unit_test(
     data = glob([
         "TestResources/Example_LibraryTests/**/*",
     ]),
+    env = {
+        "TARGET_NAME": "Example_LibraryTests",
+        "WORKSPACE_PATH": "/Users/connorwybranowski/Documents/GitHub/bazel-swift-snapshot-testing",
+    },
     minimum_os_version = "16.0",
     runner = ":ios_x86_64_sim_runner",
     deps = [

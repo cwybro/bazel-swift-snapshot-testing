@@ -1,7 +1,6 @@
 .PHONY setup:
 setup:
-	./infra/scripts/setup.sh && \
-	./infra/scripts/generate-bazelrc.sh
+	./infra/scripts/setup.sh
 
 .PHONY project:
 project: setup
