@@ -43,16 +43,16 @@ apple_support_dependencies()
 
 http_archive(
     name = "com_github_pointfreeco_swift_snapshot_testing",
-    url = "https://github.com/pointfreeco/swift-snapshot-testing/archive/refs/tags/1.10.0.tar.gz",
-    sha256 = "c023c85bd6557fc545829c95d977f1ecdb5de76d1cdae59eff809aeed7e80f4c",
     build_file = "swift-snapshot-testing/BUILD",
-    strip_prefix = "swift-snapshot-testing-1.10.0"
+    sha256 = "c023c85bd6557fc545829c95d977f1ecdb5de76d1cdae59eff809aeed7e80f4c",
+    strip_prefix = "swift-snapshot-testing-1.10.0",
+    url = "https://github.com/pointfreeco/swift-snapshot-testing/archive/refs/tags/1.10.0.tar.gz",
 )
 
 http_archive(
     name = "com_github_kylef_pathkit",
-    url = "https://github.com/kylef/PathKit/archive/refs/tags/1.0.1.tar.gz",
     # sha256 = "",
     build_file = "pathkit/BUILD",
-    strip_prefix = "PathKit-1.0.1"
+    strip_prefix = "PathKit-1.0.1",
+    url = "https://github.com/kylef/PathKit/archive/refs/tags/1.0.1.tar.gz",
 )
