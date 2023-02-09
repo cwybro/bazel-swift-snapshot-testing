@@ -31,16 +31,33 @@ swift_library(
     visibility = ["//visibility:private"],
 )
 
-swift_library(
-    name = "Example_UnitTests",
-    testonly = True,
+filegroup(
+    name = "Example_UnitTestsSources",
     srcs = glob(
         [
             "Test/**/*.swift",
         ],
         allow_empty = False,
     ),
-    module_name = "Example_UnitTests",
+)
+
+swift_library(
+    name = "Example_AppTestsLib",
+    testonly = True,
+    srcs = [":Example_UnitTestsSources"],
+    module_name = "Example_AppTests",
+    visibility = ["//visibility:private"],
+    deps = [
+        ":Example",
+        "//infra/TestKit",
+    ],
+)
+
+swift_library(
+    name = "Example_LibraryTestsLib",
+    testonly = True,
+    srcs = [":Example_UnitTestsSources"],
+    module_name = "Example_LibraryTests",
     visibility = ["//visibility:private"],
     deps = [
         ":Example",
@@ -66,7 +83,7 @@ ios_unit_test(
     runner = ":ios_x86_64_sim_runner",
     test_host = "//infra/HostApp:Host_App",
     deps = [
-        ":Example_UnitTests",
+        ":Example_AppTestsLib",
     ],
 )
 
@@ -78,7 +95,7 @@ ios_unit_test(
     minimum_os_version = "16.0",
     runner = ":ios_x86_64_sim_runner",
     deps = [
-        ":Example_UnitTests",
+        ":Example_LibraryTestsLib",
     ],
 )
 

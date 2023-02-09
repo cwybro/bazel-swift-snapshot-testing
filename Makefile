@@ -5,4 +5,4 @@ setup:
 
 .PHONY project:
 project: setup
-	bazelisk run //src:Example_Project && open src/Example_Project.xcodeproj
+	bazelisk run //src/Example:Example_Project && open src/Example/Example_Project.xcodeproj
