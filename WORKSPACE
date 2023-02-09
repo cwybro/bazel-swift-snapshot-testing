@@ -13,6 +13,13 @@ load(
 
 xcodeproj_rules_dependencies()
 
+http_archive(
+    name = "build_bazel_rules_apple",
+    sha256 = "d3afb83e5cb25893c43201824a4361c17012d4db177605d6470bb6a16fac5559",
+    strip_prefix = "rules_apple-8c6a419878d24865bbd8c25a0bd5b46df02c5611",
+    url = "https://github.com/bazelbuild/rules_apple/archive/8c6a419878d24865bbd8c25a0bd5b46df02c5611.zip",
+)
+
 load(
     "@build_bazel_rules_apple//apple:repositories.bzl",
     "apple_rules_dependencies",

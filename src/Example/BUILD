@@ -11,6 +11,10 @@ load(
     "ios_test_runner",
 )
 load(
+    "@build_bazel_rules_apple//apple/testing/default_runner:ios_xctestrun_runner.bzl",
+    "ios_xctestrun_runner",
+)
+load(
     "@com_github_buildbuddy_io_rules_xcodeproj//xcodeproj:defs.bzl",
     "xcodeproj",
 )
@@ -74,6 +78,13 @@ ios_test_runner(
     device_type = "iPhone 8",
 )
 
+ios_xctestrun_runner(
+    name = "new_test_runner",
+    device_type = "iPhone 8",
+    os_version = "16.0",
+    visibility = ["//visibility:public"],
+)
+
 ios_unit_test(
     name = "Example_AppTests",
     data = glob([
@@ -84,7 +95,7 @@ ios_unit_test(
         "WORKSPACE_PATH": "/Users/connorwybranowski/Documents/GitHub/bazel-swift-snapshot-testing",
     },
     minimum_os_version = "16.0",
-    runner = ":ios_x86_64_sim_runner",
+    runner = ":new_test_runner",
     test_host = "//infra/HostApp:Host_App",
     deps = [
         ":Example_AppTestsLib",
@@ -101,7 +112,7 @@ ios_unit_test(
         "WORKSPACE_PATH": "/Users/connorwybranowski/Documents/GitHub/bazel-swift-snapshot-testing",
     },
     minimum_os_version = "16.0",
-    runner = ":ios_x86_64_sim_runner",
+    runner = ":new_test_runner",
     deps = [
         ":Example_LibraryTestsLib",
     ],
