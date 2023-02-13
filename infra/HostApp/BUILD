@@ -1,7 +1,6 @@
 load(
     "@build_bazel_rules_apple//apple:ios.bzl",
-    "ios_unit_test",
-    "ios_application"
+    "ios_application",
 )
 
 objc_library(
@@ -13,11 +12,11 @@ objc_library(
 
 ios_application(
     name = "Host_App",
+    testonly = True,
     bundle_id = "com.host.app",
     families = ["iphone"],
     infoplists = ["Source/Info.plist"],
     minimum_os_version = "16.0",
-    deps = [":Host_AppLib"],
-    testonly = True,
     visibility = ["//visibility:public"],
+    deps = [":Host_AppLib"],
 )

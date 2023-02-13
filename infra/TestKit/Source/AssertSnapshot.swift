@@ -40,6 +40,7 @@ public func assertSnapshot<Value, Format>(
     testName: String = #function,
     line: UInt = #line
 ) {
+    SnapshotTesting.diffTool = "ksdiff"
     do {
         let snapshotDirectory: Path = try makeSnapshotDirectory(file: file)
         try snapshotDirectory.mkpath()
@@ -67,7 +68,7 @@ private func environmentValue(key: String) throws -> String {
 }
 
 private func makeSnapshotDirectory(file: StaticString) throws -> Path {
-    let testSrcDir: String = try environmentValue(key: "TEST_SRCDIR")
+    let targetName: String = try environmentValue(key: "TARGET_NAME")
     let workspacePath: String = try environmentValue(key: "WORKSPACE_PATH")
     let testFilePath: Path = .init("\(workspacePath)/\(file)")
     let testPathComponent: String = "Test"
@@ -75,6 +76,5 @@ private func makeSnapshotDirectory(file: StaticString) throws -> Path {
         throw AssertSnapshotError.missingPathComponent(path: testFilePath.string, component: testPathComponent)
     }
     let newPathComponents: [String] = testFilePath.components.dropLast(testFilePath.components.count - testIndex)
-    let targetName: String = Path(testSrcDir).lastComponentWithoutExtension
     return  Path(components: newPathComponents) + "TestResources" + targetName + "__Snapshots__"
 }
